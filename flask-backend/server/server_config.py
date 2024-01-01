@@ -14,7 +14,7 @@ db_user=os.getenv("DB_USER")
 db_password=os.getenv("DB_PASSWORD")
 db_host=os.getenv("DB_HOST")
 
-# DATABASE_LINK=f"postgresql://dbadmin:Abc123Abc123@127.0.0.1/react_flask_sqlalchemy"
+# DATABASE_LINK=f"postgresql://db_user:db_password@db_host/db_name"
 DATABASE_LINK=f"postgresql://{db_user}:{db_password}@{db_host}/{db_name}"
 
 #api end-points
