@@ -14,6 +14,11 @@ pip install flask flask_cors flask_jwt_extended flask_sqlalchemy flask_migrate
 ```
 pip install gunicorn psycopg2 psycopg2-binary
 ```
+## install flask-bcrypt
+```
+pip install flask-bcrypt
+```
+
 
 ## create api setp-by-set
 1) create service

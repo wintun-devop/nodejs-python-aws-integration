@@ -10,6 +10,12 @@ from datetime import timedelta
 #for database setting
 from flask_migrate import Migrate
 from server.models import db
+#bcrypt for password hasing
+from flask_bcrypt import Bcrypt
+
+#declare bcrypt global instance
+bcrypt = Bcrypt()
+
 
 def create_app():
     app = Flask(__name__)
@@ -28,4 +34,5 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     migrate = Migrate(app, db)
+    bcrypt.init_app(app)
     return app
