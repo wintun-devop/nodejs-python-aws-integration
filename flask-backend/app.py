@@ -3,6 +3,8 @@ from server import create_app
 #import blue prints
 from server.route.server_test import test_bp
 from server.route.user.register import register_bp
+from server.route.user.auth import auth_bp
+
 
 #create app instance
 app = create_app()
@@ -11,6 +13,7 @@ app = create_app()
 #register blueprint
 app.register_blueprint(test_bp)
 app.register_blueprint(register_bp)
+app.register_blueprint(auth_bp)
 
 if __name__ == "__main__":
     #add host as 0.0.0.0 to be accessible from outside when running as a #container
