@@ -13,6 +13,8 @@ from flask_jwt_extended import (jwt_required,
                                 create_refresh_token,
                                 get_jwt_identity,
                                 unset_jwt_cookies,
+                                set_access_cookies,
+                                set_refresh_cookies,
                                 )
 
 #register blue print
@@ -34,12 +36,40 @@ def login_user():
         isPasswordCorrect = bcrypt.check_password_hash(hash_password,user_password)
         # print("passwordCorrect",isPasswordCorrect)
         if isPasswordCorrect:
+            # create the jwt and go make response
             token_attributes={"id":check_exist.id,"name":check_exist.name,"email":check_exist.email}
             access_token = create_access_token(identity=token_attributes,fresh=True)
             refresh_token = create_refresh_token(identity=token_attributes)
             response={**token_attributes,"access_token": access_token,"refresh_token": refresh_token,"authenticated":True}
+            set_access_cookies(response, access_token)
+            set_refresh_cookies(response,refresh_token)
             return make_response(jsonify(response),201)
         else:
             return make_response(jsonify({'status':'fail','msg':'email or password incorrect.'}),400)
     except:
         return make_response(jsonify({"status":"failed","msg":"Internal Server Error"}),500)
+
+
+@auth_bp.route('/refresh', methods=['GET'])
+@jwt_required(refresh=True)  #Require a valid refresh token for this route
+def refresh():
+    # Set the JWT access cookie in the response
+    try:
+        current_user = get_jwt_identity()
+        print("referse attribute",current_user)
+        access_token = create_access_token(identity=current_user,fresh=False)
+        refresh_token = create_refresh_token(identity=current_user)
+        respone = jsonify({'refresh': True,'access_token':access_token,'refresh_token':refresh_token})
+        set_access_cookies(respone, access_token)
+        set_refresh_cookies(respone,refresh_token)
+        return make_response(jsonify(respone), 200)
+    except:
+        return make_response(jsonify({"status":"Login expired!","msg":"Login Again!"}),400)
+
+
+@auth_bp.route('/logout', methods=['DELETE'])
+@jwt_required()  #Require a valid access token for this route
+def logout():
+    respone = jsonify({'logout': True})
+    unset_jwt_cookies(respone)
+    return resp, 200
