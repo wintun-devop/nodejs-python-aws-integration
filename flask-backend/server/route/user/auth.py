@@ -16,6 +16,8 @@ from flask_jwt_extended import (jwt_required,
                                 set_access_cookies,
                                 set_refresh_cookies,
                                 )
+#error handling
+from sqlalchemy import exc
 
 #register blue print
 auth_bp = Blueprint('auth', __name__,url_prefix=AUTH_API_LINK)
@@ -28,7 +30,7 @@ def login_user():
         user_email = req_body['user_email']
         user_password = req_body['user_password']
         check_exist=Users.query.filter_by(email=user_email).first()
-        print("check email exist",check_exist)
+        # print("check email exist",check_exist)
         if check_exist is None:
             return make_response(jsonify({'status':'fail','msg':'email or password incorrect.'}),400)
         hash_password = check_exist.password
@@ -40,13 +42,14 @@ def login_user():
             token_attributes={"id":check_exist.id,"name":check_exist.name,"email":check_exist.email}
             access_token = create_access_token(identity=token_attributes,fresh=True)
             refresh_token = create_refresh_token(identity=token_attributes)
-            response={**token_attributes,"access_token": access_token,"refresh_token": refresh_token,"authenticated":True}
+            response=jsonify({**token_attributes,"access_token": access_token,"refresh_token": refresh_token,"authenticated":True})
             set_access_cookies(response, access_token)
             set_refresh_cookies(response,refresh_token)
-            return make_response(jsonify(response),201)
+            return make_response(response,201)
         else:
             return make_response(jsonify({'status':'fail','msg':'email or password incorrect.'}),400)
-    except:
+    except exc.SQLAlchemyError as e:
+        # print(e)
         return make_response(jsonify({"status":"failed","msg":"Internal Server Error"}),500)
 
 
@@ -56,13 +59,13 @@ def refresh():
     # Set the JWT access cookie in the response
     try:
         current_user = get_jwt_identity()
-        print("referse attribute",current_user)
+        # print("referse attribute",current_user)
         access_token = create_access_token(identity=current_user,fresh=False)
         refresh_token = create_refresh_token(identity=current_user)
-        respone = jsonify({'refresh': True,'access_token':access_token,'refresh_token':refresh_token})
+        respone = jsonify({'refresh': True,'access_token':access_token,'refresh_token':refresh_token,**current_user})
         set_access_cookies(respone, access_token)
         set_refresh_cookies(respone,refresh_token)
-        return make_response(jsonify(respone), 200)
+        return make_response(respone, 200)
     except:
         return make_response(jsonify({"status":"Login expired!","msg":"Login Again!"}),400)
 
@@ -72,4 +75,4 @@ def refresh():
 def logout():
     respone = jsonify({'logout': True})
     unset_jwt_cookies(respone)
-    return resp, 200
+    return respone, 200
