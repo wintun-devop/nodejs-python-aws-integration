@@ -42,7 +42,7 @@ const Login = () => {
             <Paper elevation={10} style={paperStyle}>
             {/* Avatar icon */}
             <Grid item xs={12} style={{ justifyContent: "center", display: "flex" }} >
-                <Avatar ><LockPersonIcon /></Avatar>
+                <Avatar style={{backgroundColor:'#8675af'}} ><LockPersonIcon /></Avatar>
             </Grid>
             {/* Sing in text */}
             <Grid item xs={12} style={{ justifyContent: "center", display: "flex" }} >
@@ -118,6 +118,7 @@ const Login = () => {
                     {/* submit buttom */}
                     <Grid item xs={12}>
                     <Button 
+                    style={{backgroundColor:'#8675af'}}
                     variant='contained'
                     onClick={onSubmit}
                     fullWidth
@@ -127,7 +128,7 @@ const Login = () => {
                     </Grid> 
                     {/* Go to Register Link */}
                     <Grid item xs={12}>
-                    <Link href='/auth/register' underline='none'>
+                    <Link href='#' underline='none'>
                     Go to Register
                     </Link>
                     </Grid>

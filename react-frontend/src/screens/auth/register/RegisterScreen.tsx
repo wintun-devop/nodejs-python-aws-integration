@@ -44,13 +44,13 @@ const Register = () => {
             <Paper elevation={10} style={paperStyle}>
             {/* Avatar icon */}
             <Grid item xs={12} style={{ justifyContent: "center", display: "flex" }} >
-                <Avatar ><LockPersonIcon /></Avatar>
+                <Avatar style={{backgroundColor:'#8675af'}}><LockPersonIcon /></Avatar>
             </Grid>
             {/* Sing in text */}
             <Grid item xs={12} style={{ justifyContent: "center", display: "flex" }} >
-                <Typography>Sign in</Typography>
+                <Typography>Register</Typography>
             </Grid>
-            {/* singin label and text fields */}
+            {/* signup label and text fields */}
             <Box
               sx={{
                 display: 'flex',
@@ -148,13 +148,14 @@ const Register = () => {
                     variant='contained'
                     onClick={onSubmit}
                     fullWidth
+                    style={{backgroundColor:'#8675af'}}
                     >
                     Register
                     </Button>    
                     </Grid> 
                     {/* Go to Register Link */}
                     <Grid item xs={12}>
-                    <Link href='/auth/register' underline='none'>
+                    <Link href='#' underline='none'>
                     If you have already account,Go to login.
                     </Link>
                     </Grid>
