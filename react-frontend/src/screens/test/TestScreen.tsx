@@ -34,7 +34,7 @@ const TestScreen = () =>{
     }}
     >
     <Typography>Test Screen</Typography>
-    <FormInputText name="textValue" control={control} label="Text Input" />
+    <FormInputText name="textValue" control={control} label="Email" />
     <Button onClick={handleSubmit(onSubmit)} variant={"contained"}>
     {" "}
     Submit{" "}
