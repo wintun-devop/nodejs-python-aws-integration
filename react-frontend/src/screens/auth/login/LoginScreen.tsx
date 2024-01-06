@@ -1,4 +1,4 @@
-import React,{ useState,useRef } from 'react';
+import React,{ useState } from 'react';
 import { 
     Avatar,
      Grid, 
@@ -15,23 +15,37 @@ import {
     } from '@mui/material'
 import LockPersonIcon from '@mui/icons-material/LockPerson';
 
+
+
+
+
 const Login = () => {
     const [error, setError] = useState('');
-    const email = useRef('');
-    const password = useRef('');
-    console.log("email",email)
-    const onSubmit = (e: React.FormEvent) =>{
-        e.preventDefault();
-        console.log(e)
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+    // console.log("email",email)
+    // console.log("email",password)
+
+    const handleSubmit = (e:React.FormEvent<HTMLFormElement>) =>{
+      e.preventDefault();
+      if(!email){
+        setError("Required Email!")
+      }else if(!password){
+        setError("Required Password!")
+      }
+      console.log("email",email);
+      console.log("password",password);
         // try{
 
         // }catch(error:any){
 
         // }   
     }
+
+
+  
     return(
         <Container component='main' maxWidth='xs'>
-        <form noValidate>
         <Box
             sx={{
               justifyContent: 'center',
@@ -49,6 +63,7 @@ const Login = () => {
                 <Typography>Sign in</Typography>
             </Grid>
             {/* singin label and text fields */}
+            <form onSubmit={handleSubmit}>
             <Box
               sx={{
                 display: 'flex',
@@ -81,6 +96,7 @@ const Login = () => {
                         name='email'
                         autoComplete='email'
                         size='small'
+                        value={email}
                         InputProps={{
                           sx: {
                             '& input': {
@@ -88,7 +104,7 @@ const Login = () => {
                             },
                           },
                         }}
-                        onChange={(e) => (email.current = e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </FormControl>
                     </Grid>                 
@@ -104,6 +120,7 @@ const Login = () => {
                         name='password'
                         type='password'
                         size='small'
+                        value={password}
                         InputProps={{
                           sx: {
                             '& input': {
@@ -111,7 +128,7 @@ const Login = () => {
                             },
                           },
                         }}
-                        onChange={(e) => (password.current = e.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </FormControl>
                     </Grid>  
@@ -120,7 +137,6 @@ const Login = () => {
                     <Button 
                     style={{backgroundColor:'#8675af'}}
                     variant='contained'
-                    onClick={onSubmit}
                     fullWidth
                     >
                     Login
@@ -135,9 +151,9 @@ const Login = () => {
                 </Grid>   
             </Grid>
             </Box>  
+            </form>
             </Paper>     
         </Box>
-        </form>
         </Container>
     )
 }
@@ -150,5 +166,13 @@ const paperStyle={
     alignItems: 'center'  
 }
 
+
+// const Login = () => {
+//   return(
+//     <>
+//     <h1>Login Page</h1>
+//     </>
+//   )
+// }
 
 export default Login;
