@@ -8,6 +8,7 @@ import LockPersonIcon from '@mui/icons-material/LockPerson';
 interface IFormInput {
     emailValue: string;
     passwordValue:string;
+    confirmPasswordValue:string;
     // radioValue: string;
     // checkboxValue: string[];
     // dateValue: Date;
@@ -19,6 +20,7 @@ interface IFormInput {
 const defaultValues = {
     emailValue: "",
     passwordValue:"",
+    confirmPasswordValue:"",
     // radioValue: "",
     // checkboxValue: [],
     // dateValue: new Date(),
@@ -27,11 +29,11 @@ const defaultValues = {
 };
 
 
-const TestLoginScreen = () =>{
+const TestRegisterScreen = () =>{
     const methods = useForm<IFormInput>({ defaultValues: defaultValues });
     const { handleSubmit, reset, control, setValue, watch } = methods;
 
-    const loginSubmit = (data: IFormInput) => {
+    const registerSubmit = (data: IFormInput) => {
         console.log(data)
     }
     
@@ -52,18 +54,21 @@ const TestLoginScreen = () =>{
         </Grid>
         {/* Sing in text */}
         <Grid item xs={12} style={{ justifyContent: "center", display: "flex" ,margin: "20px auto"}} >
-            <Typography>Sign in</Typography>
+            <Typography>Register</Typography>
         </Grid>
         {/* form and labels */}
-        <Grid item xs={12} style={{ justifyContent: "center", display: "flex" ,margin: "40px auto"}} >
+        <Grid item xs={12} style={{ justifyContent: "center", display: "flex" ,margin: "20px auto"}} >
         <FormInputTextField  name="emailValue" control={control} label="Email" type="text" />
         </Grid>
-        <Grid item xs={12} style={{ justifyContent: "center", display: "flex" ,margin: "40px auto"}} >
+        <Grid item xs={12} style={{ justifyContent: "center", display: "flex" ,margin: "20px auto"}} >
         <FormInputTextField  name="passwordValue" control={control} label="Password" type="password" />
         </Grid>
-        <Button onClick={handleSubmit(loginSubmit)} variant={"contained"}>
+        <Grid item xs={12} style={{ justifyContent: "center", display: "flex" ,margin: "20px auto"}} >
+        <FormInputTextField  name="confirmPasswordValue" control={control} label="Confirm Password" type="password" />
+        </Grid>
+        <Button onClick={handleSubmit(registerSubmit)} variant={"contained"}>
         {" "}
-        Login
+        Register
         {" "}
         </Button>
         <Button onClick={() => reset()} variant={"outlined"} style={{margin:10}}>
@@ -76,4 +81,4 @@ const TestLoginScreen = () =>{
     )
 }
 
-export default TestLoginScreen;
+export default TestRegisterScreen;
