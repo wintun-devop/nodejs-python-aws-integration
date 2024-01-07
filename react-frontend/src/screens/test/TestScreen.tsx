@@ -40,8 +40,8 @@ const TestScreen = () =>{
     Submit{" "}
     </Button>
     <Button onClick={() => reset()} variant={"outlined"}>
-        {" "}
-        Reset{" "}
+    {" "}
+    Reset{" "}
     </Button>
     </Paper>
     )
