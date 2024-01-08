@@ -7,6 +7,9 @@ import { TextField } from "@mui/material";
 export const FormInputTextField = ({ name, control, label,type }: FormInputProps) => {
   return (
     <Controller
+      rules={{
+        required: "This Field is required!"
+      }}
       name={name}
       control={control}
       render={({

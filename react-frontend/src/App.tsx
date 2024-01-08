@@ -9,12 +9,11 @@ import TestRegisterScreen from "./screens/auth/register/TestRegisterScreen"
 const  App = () => {
   return (
     <>
-      {/* <Login /> */}
-      {/* <Register /> */}
+      
       {/* <Dashboard /> */}
-      {/* <TestScreen /> */}
-      {/* <TestLoginScreen /> */}
-      <TestRegisterScreen />
+     
+      <TestLoginScreen />
+      {/* <TestRegisterScreen /> */}
     </>
   )
 }
