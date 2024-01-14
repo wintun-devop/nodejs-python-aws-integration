@@ -33,3 +33,13 @@ pip install flask-bcrypt
 ## deploy
 1) pip install -r requirements.txt
 2) gunicorn --bind 0.0.0.0:5000 wsgi:app
+
+## develpment runing
+### running with default port 5000
+```
+flask run --reload
+```
+### running with specific port 8000
+```
+flask run --port 8000 --reload
+```
